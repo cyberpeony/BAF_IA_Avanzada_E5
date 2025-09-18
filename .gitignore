@@ -1,0 +1,26 @@
+# envs
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+# sistema
+.DS_Store
+Thumbs.db
+# salidas (por el momento)
+outputs/
+*.json
+*.csv
+*.png
+# datos (usamos base.csv, es pesado)
+Datasets/
+*.zip
+*.tar
+*.gz
+# conda envs
+*.conda
+*.egg-info/
+*.lock
