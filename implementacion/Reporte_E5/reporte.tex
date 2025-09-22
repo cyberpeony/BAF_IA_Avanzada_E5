@@ -118,6 +118,35 @@ Variables como \texttt{source}, \texttt{device\_os}, \texttt{housing\_status} mu
 
 \section{Metodología de modelado}
 
+\subsection{Modelos exploratorios y descartados}
+
+Red Neuronal (MLP) con SMOTE.
+Se entrenó una red neuronal densa sobre variables numéricas estandarizadas y variables categóricas por one-hot, aplicando SMOTE para balancear las clases. El entrenamiento se realizó con partición aleatoria y umbral fijo de 0.5. Los resultados reportados fueron altos, pero posteriormente se identificaron problemas metodológicos que invalidan esas métricas como evidencia comparativa.
+
+\begin{table}[H]
+\centering
+\caption{Resultados de la NN con SMOTE (partición aleatoria y umbral 0.5)}
+\begin{tabular}{lcc}
+\toprule
+Métrica & Validación (promedio por batch) & Prueba \\
+\midrule
+Accuracy & 0.92--0.93 & 0.9277 \\
+Recall   & 0.90--0.95 & 0.9337 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Motivos de descarte (riesgo de fuga y protocolo no comparable).}
+\begin{itemize}
+  \item Preprocesamiento ajustado con todo el conjunto antes de dividir (get dummies y StandardScaler sobre el total). Esto introduce fuga de información desde validación y prueba hacia entrenamiento.
+  \item SMOTE aplicado antes de la división aleatoria, generando ejemplos sintéticos con información de todo el dataset y “contaminando” los splits.
+  \item Partición aleatoria estratificada en lugar de respetar la división temporal (meses 0–5 entrenan, 6 valida, 7 prueba), por lo que no se evalúa el drift temporal del reto.
+  \item Umbral fijo de 0.5 y métricas agregadas por batch, no se controló el punto operativo de FPR = 5\% ni se reportaron métricas ROC/PR coherentes con el objetivo del reto (recall a FPR $<$ 5\%).
+  \item La combinación de los puntos anteriores explica los valores “demasiado buenos” de accuracy/recall: provienen de datos procesados con fuga y de un protocolo de evaluación distinto al del pipeline final.
+\end{itemize}
+
+En síntesis, aunque la NN con SMOTE arrojó números elevados, el procedimiento no es comparable con el pipeline validado (división temporal, preprocesamiento ajustado solo en train, ausencia de sobre-muestreo entre meses y fijación de umbral por cuantil para asegurar FPR = 5\%). Por ello, se descartó como evidencia principal y no se incluyó en la comparación final, ya que al evaluar ajustando estos valores se obtuvieron métricas peores a las obtenidas con LigthGBM.
+
 \subsection{División temporal}
 Entrenamiento: meses 0--5; Validación: mes 6; Prueba: mes 7. 
 No se mezclaron meses para preservar el drift temporal.
@@ -216,7 +245,7 @@ $\geq$ 50 años & 0.101 \\
 \section{Ética y normatividad}
 \subsection{Principios}
 La variable customer\_age se incluyó en iteraciones iniciales y mostró alta contribución predictiva. 
-Al ser un atributo protegido, medimos Predictive Equality por edad y observamos disparidad (FPR >=50 > FPR <50).
+Al ser un atributo protegido, medimos Predictive Equality por edad y observamos disparidad (FPR $>$=50 $>$ FPR $<$ 50).
 Documentamos el impacto de incluirla (ablation) y presentamos alternativas de mitigación.
 
 \subsection{Normatividad aplicable}
