@@ -1,0 +1,133 @@
+:root{
+  --bg:#0b0b0c;
+  --muted:#475569;
+  --card:#ffffff;
+  --ink:#0b0b0c;
+  --ink2:#1f2937;
+  --border:#e7eaf2;
+  --brand:#0ea5e9;
+}
+
+.dash{
+  max-width:1100px;
+  margin:24px auto;
+  padding:16px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Ubuntu, "Cantarell", "Helvetica Neue", Arial, sans-serif;
+  color:var(--ink2);
+}
+
+.dash-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:16px;
+}
+
+.dash-title{
+  font-size:22px;
+  margin:0;
+  color:var(--ink);
+}
+
+.subtle{ color:var(--muted); }
+
+.grid{
+  display:grid;
+  gap:12px;
+}
+
+.metrics{
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+
+.card-title{
+  font-weight:600;
+  margin-bottom:8px;
+  color:var(--ink);
+}
+
+.metric-card{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.metric-label{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.metric-value{
+  font-size:24px;
+  font-weight:700;
+}
+
+.tabnums{ font-variant-numeric: tabular-nums; }
+
+.value-chip{
+  font-size:12px;
+  padding:2px 8px;
+  border:1px solid var(--border);
+  border-radius:999px;
+}
+
+.slider-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.cm-wrap{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.cm-axes{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:12px;
+  color:var(--muted);
+  justify-content:center;
+}
+
+.cm-table{ border-collapse: collapse; }
+
+.cm-table th,
+.cm-table td{
+  border:1px solid var(--border);
+  padding:8px 10px;
+  text-align:center;
+}
+
+.cm-table thead th{
+  background:#f8fafc;
+  font-weight:600;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.cm-correct{ background:#ecfdf5; } /* verde tenue */
+.cm-wrong{ background:#fff1f2; }   /* rojo tenue */
+
+footer{
+  text-align:center;
+  color:var(--muted);
+}
+
+@media (max-width: 720px){
+  .dash-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+}

@@ -65,3 +65,31 @@ El objetivo principal es maximizar el recall al 5% de FPR en un dataset altament
     - conda activate baf
     - python implementacion/baf_model.py --csv Datasets/Base.csv --out_dir outputs
 
+## Nuevos elementos añadidos
+- **EDA (Exploratory Data Analysis)**: analisis/EDA.ipynb
+- **Presentación final**: implementacion/Presentacion_Solucion_E5.pdf
+- **Interfaz Web**: implementacion/interfaz
+    - Construida con React + Vite
+    - Muestra gráficamente los resultados leyendo los resultados generados por el pipeline (baf_model.py) de manera interactiva
+    - Pasos para ejecutar:  
+     ```bash
+     cd implementacion/interfaz
+     npm install
+     npm run dev
+     ```
+   - Una vez corriendo, abrir el navegador en la URL que muestre la consola (probablemente sea http://localhost:5173/)
+   - Requisitos: Node.js >= 20.19 o 22.12 (según lo pida Vite)
+   - Los archivos .json con métricas deben estar en implementacion/interfaz/public/ (por ejemplo: metrics_baf_base.json)
+- **Reporte final (formato Springer LNCS, LaTeX)**: implementacion/Reporte_E5/:
+    - Documento académico en español que describe:
+        - Introducción al problema
+        - Metodología
+        - Experimentos realizados
+        - Resultados
+        - Conclusiones (con aportación individual de cada miembro)
+        - Bibliografía
+    - Se aconseja revisarlo para entender a fondo el modelo propuesto.
+
+## Correcciones realizadas
+- Para este proyecto no se recibieron correcciones mayores en las entregas intermedias de los módulos, por lo cual el equipo mantuvo la solución original, simplemente añadiendo a la misma. Esto es, la única retroalimentación recibida fue continuar con el mismo enfoque, dado que se cumplían correctamente los indicadores.
+- Una nota a mencionar es que inicialmente consideramos oversampling para nuestro modelo, pero finalmente lo sustituimos por el ajuste de umbrales y regularización de parámetros. Este cambio fue en tiempo y forma, con apoyo de los profesores, y está documentado en el reporte (implementacion/Reporte_E5/).
